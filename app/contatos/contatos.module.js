@@ -6,20 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 const core_1 = require("@angular/core");
-const platform_browser_1 = require("@angular/platform-browser");
-const app_component_1 = require("./app.component");
-const contatos_module_1 = require("./contatos/contatos.module");
-let AppModule = class AppModule {
+const common_1 = require("@angular/common");
+const contatos_lista_component_1 = require("./contatos-lista.component");
+let ContatosModule = class ContatosModule {
 };
-AppModule = __decorate([
+ContatosModule = __decorate([
     core_1.NgModule({
         imports: [
-            platform_browser_1.BrowserModule,
-            contatos_module_1.ContatosModule
+            common_1.CommonModule
         ],
-        declarations: [app_component_1.AppComponent],
-        bootstrap: [app_component_1.AppComponent]
+        declarations: [
+            contatos_lista_component_1.ContatosListaComponent
+        ],
+        exports: [
+            contatos_lista_component_1.ContatosListaComponent
+        ]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], ContatosModule);
+exports.ContatosModule = ContatosModule;
+//# sourceMappingURL=contatos.module.js.map
