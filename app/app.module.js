@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 const core_1 = require("@angular/core");
 const platform_browser_1 = require("@angular/platform-browser");
 const app_component_1 = require("./app.component");
-const contatos_module_1 = require("./contatos/contatos.module");
 const app_routing_module_1 = require("./app-routing.module");
+const contatos_module_1 = require("./contatos/contatos.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([

@@ -8,7 +8,7 @@ const contatoRoutes: Routes = [
     {
         path: 'contato',
         component: ContatosListaComponent
-    }
+    },
     {
         path: 'contato/save',
         component: ContatoDetalheComponent

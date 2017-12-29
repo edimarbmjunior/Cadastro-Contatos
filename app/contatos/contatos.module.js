@@ -16,7 +16,7 @@ ContatosModule = __decorate([
     core_1.NgModule({
         imports: [
             common_1.CommonModule,
-            contato_routing_module_1.ContaoRoutingModule
+            contato_routing_module_1.ContatoRoutingModule
         ],
         declarations: [
             contatos_lista_component_1.ContatosListaComponent,

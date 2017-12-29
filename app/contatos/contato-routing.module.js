@@ -19,14 +19,14 @@ const contatoRoutes = [
         component: contato_detalhe_component_1.ContatoDetalheComponent
     }
 ];
-let ContaoRoutingModule = class ContaoRoutingModule {
+let ContatoRoutingModule = class ContatoRoutingModule {
 };
-ContaoRoutingModule = __decorate([
+ContatoRoutingModule = __decorate([
     core_1.NgModule({
         imports: [
             router_1.RouterModule.forChild(contatoRoutes)
         ]
     })
-], ContaoRoutingModule);
-exports.ContaoRoutingModule = ContaoRoutingModule;
+], ContatoRoutingModule);
+exports.ContatoRoutingModule = ContatoRoutingModule;
 //# sourceMappingURL=contato-routing.module.js.map
