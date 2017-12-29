@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     template: `
         <h1>My first Angular 2 App [Edimar]</h1>
         
-        <contatos-lista></contatos-lista>
+        <router-outlet></router-outlet>
     `
 })
 export class AppComponent{}

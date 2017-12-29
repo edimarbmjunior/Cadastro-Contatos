@@ -6,26 +6,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 const core_1 = require("@angular/core");
-const common_1 = require("@angular/common");
-const contato_detalhe_component_1 = require("./contato-detalhe.component");
+const router_1 = require("@angular/router");
 const contatos_lista_component_1 = require("./contatos-lista.component");
-const contato_routing_module_1 = require("./contato-routing.module");
-let ContatosModule = class ContatosModule {
+const contato_detalhe_component_1 = require("./contato-detalhe.component");
+const contatoRoutes = [
+    {
+        path: 'contato',
+        component: contatos_lista_component_1.ContatosListaComponent
+    },
+    {
+        path: 'contato/save',
+        component: contato_detalhe_component_1.ContatoDetalheComponent
+    }
+];
+let ContaoRoutingModule = class ContaoRoutingModule {
 };
-ContatosModule = __decorate([
+ContaoRoutingModule = __decorate([
     core_1.NgModule({
         imports: [
-            common_1.CommonModule,
-            contato_routing_module_1.ContaoRoutingModule
-        ],
-        declarations: [
-            contatos_lista_component_1.ContatosListaComponent,
-            contato_detalhe_component_1.ContatoDetalheComponent
-        ],
-        exports: [
-            contatos_lista_component_1.ContatosListaComponent
+            router_1.RouterModule.forChild(contatoRoutes)
         ]
     })
-], ContatosModule);
-exports.ContatosModule = ContatosModule;
-//# sourceMappingURL=contatos.module.js.map
+], ContaoRoutingModule);
+exports.ContaoRoutingModule = ContaoRoutingModule;
+//# sourceMappingURL=contato-routing.module.js.map
