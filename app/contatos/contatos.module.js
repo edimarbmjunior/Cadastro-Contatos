@@ -10,6 +10,7 @@ const common_1 = require("@angular/common");
 const contato_detalhe_component_1 = require("./contato-detalhe.component");
 const contatos_lista_component_1 = require("./contatos-lista.component");
 const contato_routing_module_1 = require("./contato-routing.module");
+const contato_service_1 = require("./contato.service");
 let ContatosModule = class ContatosModule {
 };
 ContatosModule = __decorate([
@@ -24,6 +25,9 @@ ContatosModule = __decorate([
         ],
         exports: [
             contatos_lista_component_1.ContatosListaComponent
+        ],
+        providers: [
+            contato_service_1.ContatoService
         ]
     })
 ], ContatosModule);
