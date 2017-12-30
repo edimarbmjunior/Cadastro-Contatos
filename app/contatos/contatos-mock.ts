@@ -1,4 +1,4 @@
-import { Contato } from "./contato.modules";
+import { Contato } from "./contato.model";
 
 export const CONTATOS: Contato[] = [
     {id:1, nome:'Fulano de tal', email: 'fulano@email', telefone: '(00) 0000-0000'},
