@@ -15,7 +15,7 @@ let ContatosListaComponent = class ContatosListaComponent {
         this.contatoService = contatoService;
     }
     ngOnInit() {
-        //this.contatos = this.contatoService.getContatos(); -> sem promises
+        //this.contatos = this.contatoService.getContatos(); //-> chamado sem promises
         this.contatoService.getContatos().then((contatos) => {
             this.contatos = contatos;
         }).catch(err => console.log(err));

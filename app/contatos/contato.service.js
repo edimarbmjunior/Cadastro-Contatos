@@ -8,8 +8,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 const core_1 = require("@angular/core");
 const contatos_mock_1 = require("./contatos-mock");
 let ContatoService = class ContatoService {
+    /*getContatos(): Contato[] { // -> chamar quando não tiver promises
+        return CONTATOS;
+    }*/
     getContatos() {
         return Promise.resolve(contatos_mock_1.CONTATOS);
+    }
+    getContatosSlowly() {
+        return new Promise((resolve, reject) => {
+            setTimeout(resolve, 2000);
+        })
+            .then(() => {
+            console.log('primeiro then');
+            return 'Curso angular 2 Plinio Naves';
+        })
+            .then((param) => {
+            console.log('segundo then');
+            console.log(param);
+            return new Promise((resolve2, reject2) => {
+                setTimeout(() => {
+                    console.log('continuando depois de 4 segundos ...');
+                    resolve2();
+                }, 4000);
+            });
+        })
+            .then(() => {
+            console.log('terceiro then');
+            return this.getContatos();
+        });
     }
 };
 ContatoService = __decorate([

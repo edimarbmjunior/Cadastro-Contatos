@@ -14,7 +14,7 @@ export class ContatosListaComponent implements OnInit{
     constructor(private contatoService: ContatoService){}
 
     ngOnInit(): void{
-        //this.contatos = this.contatoService.getContatos(); -> sem promises
+        //this.contatos = this.contatoService.getContatos(); //-> chamado sem promises
         this.contatoService.getContatos().then((contatos: Contato[])=> {
             this.contatos = contatos;
         }).catch(err=> console.log(err));
