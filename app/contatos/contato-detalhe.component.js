@@ -12,23 +12,49 @@ const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const common_1 = require("@angular/common");
 const contato_service_1 = require("./contato.service");
+const contato_model_1 = require("./contato.model");
 let ContatoDetalheComponent = class ContatoDetalheComponent {
     constructor(contatoService, route, location) {
         this.contatoService = contatoService;
         this.route = route;
         this.location = location;
+        this.isNew = true;
     }
     ngOnInit() {
-        console.log('On Init');
+        this.contato = new contato_model_1.Contato(0, '', '', '');
         this.route.params.forEach((params) => {
             let id = +params['id'];
-            console.log('Id: ' + typeof id);
-            console.log('Id: ' + id);
-            this.contatoService.getContato(id)
-                .then((contato) => {
-                console.log(contato);
-            });
+            if (id) {
+                /*console.log('Id: ' + typeof id);
+                console.log('Id: ' + id);*/
+                this.contatoService.getContato(id)
+                    .then((contato) => {
+                    this.contato = contato;
+                });
+            }
         });
+    }
+    getFormGroupClass(isValid, isPristine) {
+        return {
+            'form-group': true,
+            'has-danger': !isValid && !isPristine,
+            'has-success': isValid && !isPristine
+        };
+    }
+    getFormControlClass(isValid, isPristine) {
+        return {
+            'form-control': true,
+            'form-control-danger': !isValid && !isPristine,
+            'form-control-success': isValid && !isPristine
+        };
+    }
+    onSubmit() {
+        if (this.isNew) {
+            console.log('Cadastrar contato');
+        }
+        else {
+            console.log('Alterar contato');
+        }
     }
 };
 ContatoDetalheComponent = __decorate([
