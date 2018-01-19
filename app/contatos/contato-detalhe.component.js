@@ -21,10 +21,11 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
         this.isNew = true;
     }
     ngOnInit() {
-        this.contato = new contato_model_1.Contato(0, '', '', '');
+        this.contato = new contato_model_1.Contato('', '', '');
         this.route.params.forEach((params) => {
             let id = +params['id'];
             if (id) {
+                this.isNew = false;
                 /*console.log('Id: ' + typeof id);
                 console.log('Id: ' + id);*/
                 this.contatoService.getContato(id)
@@ -49,12 +50,15 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
         };
     }
     onSubmit() {
+        let promise;
         if (this.isNew) {
             console.log('Cadastrar contato');
+            promise = this.contatoService.create(this.contato);
         }
         else {
             console.log('Alterar contato');
         }
+        promise.then(contato => this.location.back());
     }
 };
 ContatoDetalheComponent = __decorate([
