@@ -39,9 +39,19 @@ export class ContatoService{
     }*/
 
     create(contato: Contato): Promise<Contato>{
-        return this.http.post(this.contatosUrl, JSON.stringify(contato), {headers: this.headers})
+        return this.http
+            .post(this.contatosUrl, JSON.stringify(contato), {headers: this.headers})
             .toPromise()
             .then((response: Response) => response.json().data as Contato)
+            .catch(this.handlError);
+    }
+
+    update(contato: Contato): Promise<Contato>{
+        const url = `${this.contatosUrl}/${contato.id}`; // app/contatos/id
+        return this.http
+            .put(url, JSON.stringify(contato), {headers: this.headers})
+            .toPromise()
+            .then(() => contato as Contato)
             .catch(this.handlError);
     }
 
