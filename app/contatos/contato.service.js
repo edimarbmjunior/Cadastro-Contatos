@@ -51,6 +51,14 @@ let ContatoService = class ContatoService {
             .then(() => contato)
             .catch(this.handlError);
     }
+    delete(contato) {
+        const url = `${this.contatosUrl}/${contato.id}`; // app/contatos/id
+        return this.http
+            .delete(url, { headers: this.headers })
+            .toPromise()
+            .then(() => contato)
+            .catch(this.handlError);
+    }
     handlError(err) {
         console.log('Error: ', err);
         return Promise.reject(err.message || err);
