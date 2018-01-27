@@ -15,6 +15,7 @@ let ContatosListaComponent = class ContatosListaComponent {
     constructor(contatoService, dialogService) {
         this.contatoService = contatoService;
         this.dialogService = dialogService;
+        this.contatos = [];
     }
     ngOnInit() {
         //this.contatos = this.contatoService.getContatos(); //-> chamado sem promises
@@ -22,6 +23,10 @@ let ContatosListaComponent = class ContatosListaComponent {
             this.contatos = contatos;
         }).catch(err => {
             console.log('Acoteceu um erro: ', err);
+            this.mostrarMensagem({
+                tipo: 'danger',
+                texto: 'Ocorreu um erro ao buscar a lista de contatos! Verifique com a equipe técnica o erro - ' + err.toString
+            });
         });
     }
     onDelete(contato) {
@@ -33,11 +38,64 @@ let ContatosListaComponent = class ContatosListaComponent {
                     .delete(contato)
                     .then(() => {
                     this.contatos = this.contatos.filter((c) => c.id != contato.id);
+                    this.mostrarMensagem({
+                        tipo: 'success',
+                        texto: 'Contato Deletado!'
+                    });
                 }).catch(err => {
                     console.log('Erro(Delete): ' + err);
+                    this.mostrarMensagem({
+                        tipo: 'danger',
+                        texto: 'Ocorreu um erro ao deletar ' + contato.nome + '! Verifique com a equipe técnica - ' + err.toString
+                    });
                 });
             }
         });
+    }
+    mostrarMensagem(mensagem) {
+        this.mensagem = mensagem;
+        this.montarClassesCss(mensagem.tipo);
+        if (mensagem.tipo != 'danger') {
+            if (this.currentTimeout) {
+                clearTimeout(this.currentTimeout);
+            }
+            this.currentTimeout = setTimeout(() => {
+                this.mensagem = undefined;
+            }, 2500);
+        }
+    }
+    montarClassesCss(tipo) {
+        this.alertaTipo = 'alert-' + tipo.toString;
+        if (tipo == 'success') {
+            this.classesCss = {
+                'alert': true,
+                'alert-success': true
+            };
+        }
+        else {
+            if (tipo == 'info') {
+                this.classesCss = {
+                    'alert': true,
+                    'alert-info': true
+                };
+            }
+            else {
+                if (tipo == 'danger') {
+                    this.classesCss = {
+                        'alert': true,
+                        'alert-danger': true
+                    };
+                }
+                else {
+                    if (tipo == 'warning') {
+                        this.classesCss = {
+                            'alert': true,
+                            'alert-warning': true
+                        };
+                    }
+                }
+            }
+        }
     }
 };
 ContatosListaComponent = __decorate([

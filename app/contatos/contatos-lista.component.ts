@@ -11,7 +11,12 @@ import { DialogService } from '../dialog.service';
 })
 export class ContatosListaComponent implements OnInit{
     
-    contatos: Contato[];
+    contatos: Contato[] = [];
+    mensagem: {};
+    classesCss: {};
+    alertaTipo: string;
+    private currentTimeout: any;
+
     constructor(
         private contatoService: ContatoService,
         private dialogService: DialogService
@@ -23,6 +28,10 @@ export class ContatosListaComponent implements OnInit{
             this.contatos = contatos;
         }).catch(err=> {
             console.log('Acoteceu um erro: ', err);
+            this.mostrarMensagem({
+                tipo:'danger',
+                texto: 'Ocorreu um erro ao buscar a lista de contatos! Verifique com a equipe técnica o erro - ' + err.toString
+            });
         });
     }
 
@@ -35,11 +44,66 @@ export class ContatosListaComponent implements OnInit{
                         .delete(contato)
                         .then(() => {
                             this.contatos = this.contatos.filter((c: Contato) => c.id != contato.id);
+
+                            this.mostrarMensagem({
+                                tipo:'success',
+                                texto: 'Contato Deletado!'
+                            });
+
                         }).catch(err => {
                             console.log('Erro(Delete): ' + err);
+                            this.mostrarMensagem({
+                                tipo:'danger',
+                                texto: 'Ocorreu um erro ao deletar ' + contato.nome + '! Verifique com a equipe técnica - ' + err.toString
+                            });
                         });
                 }
             });
     }
 
+    private mostrarMensagem(mensagem: {tipo: string, texto: string}): void{
+        this.mensagem = mensagem;
+        this.montarClassesCss(mensagem.tipo);
+        
+        if(mensagem.tipo != 'danger'){
+            if(this.currentTimeout){
+                clearTimeout(this.currentTimeout);
+            }
+            this.currentTimeout = setTimeout(() => {
+                this.mensagem = undefined;
+            }, 2500);
+        }
+    }
+
+    private montarClassesCss(tipo: string): void{
+        this.alertaTipo = 'alert-' + tipo.toString;
+
+        if(tipo == 'success'){
+            this.classesCss = {
+                'alert': true,
+                'alert-success': true
+            };
+        }else{
+            if(tipo == 'info'){
+                this.classesCss = {
+                    'alert': true,
+                    'alert-info': true
+                };
+            }else{
+                if(tipo == 'danger'){
+                    this.classesCss = {
+                        'alert': true,
+                        'alert-danger': true
+                    };
+                }else{
+                    if(tipo == 'warning'){
+                        this.classesCss = {
+                            'alert': true,
+                            'alert-warning': true
+                        };
+                    }
+                }
+            }
+        }
+    }
 }
