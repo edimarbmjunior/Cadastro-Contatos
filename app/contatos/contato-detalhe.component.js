@@ -59,7 +59,10 @@ let ContatoDetalheComponent = class ContatoDetalheComponent {
             console.log('Alterar contato');
             promise = this.contatoService.update(this.contato);
         }
-        promise.then(contato => this.location.back());
+        promise.then(contato => this.goBack());
+    }
+    goBack() {
+        this.location.back();
     }
 };
 ContatoDetalheComponent = __decorate([
