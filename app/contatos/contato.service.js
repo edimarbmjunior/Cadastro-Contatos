@@ -90,6 +90,11 @@ let ContatoService = class ContatoService {
             return this.getContatos();
         });
     }
+    search(term) {
+        return this.http
+            .get(`${this.contatosUrl}/?nome=${term}`)
+            .map((res) => res.json().data);
+    }
 };
 ContatoService = __decorate([
     core_1.Injectable(),
