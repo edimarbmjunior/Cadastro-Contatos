@@ -9,41 +9,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
+const router_1 = require("@angular/router");
 const Observable_1 = require("rxjs/Observable");
 const Subject_1 = require("rxjs/Subject");
 const contato_service_1 = require("./contato.service");
 let ContatoBuscaComponent = class ContatoBuscaComponent {
-    constructor(contatoService) {
+    constructor(contatoService, router) {
         this.contatoService = contatoService;
+        this.router = router;
         this.termosDaBusca = new Subject_1.Subject();
     }
     ngOnInit() {
         this.contatos = this.termosDaBusca
-            .debounceTime(400)
-            .distinctUntilChanged()
-            .switchMap(term => {
-            console.log('Fez a busca', term);
-            return term ? this.contatoService.search(term) : Observable_1.Observable.of([]);
-        }).catch(err => {
+            .debounceTime(500) // aguarde 500ms para acionar novos evento
+            .distinctUntilChanged() // ignore o termo de busca se o termo for igual ao anterior
+            .switchMap(term => term ? this.contatoService.search(term) : Observable_1.Observable.of([]))
+            .catch(err => {
             console.log('Erro = ', err);
             return Observable_1.Observable.of([]);
         });
-        this.contatos.subscribe((contatos) => {
+        /*this.contatos.subscribe((contatos: Contato[]) => {
             console.log('Retornou do servidor: ', contatos);
-        });
+        })*/ // retirado por ter a função "async", que subscreve o observable retornado
     }
     search(termo) {
         console.log('Busca ', termo);
         this.termosDaBusca.next(termo);
+    }
+    verDetalhe(contato) {
+        let link = ['contato/save', contato.id];
+        this.router.navigate(link);
     }
 };
 ContatoBuscaComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'contato-busca',
-        templateUrl: 'contato-busca.component.html'
+        templateUrl: 'contato-busca.component.html',
+        styles: [`
+        .curso-pointer:hover {
+            cursor: pointer;
+        }
+    `]
     }),
-    __metadata("design:paramtypes", [contato_service_1.ContatoService])
+    __metadata("design:paramtypes", [contato_service_1.ContatoService,
+        router_1.Router])
 ], ContatoBuscaComponent);
 exports.ContatoBuscaComponent = ContatoBuscaComponent;
 //# sourceMappingURL=contato-busca.component.js.map
