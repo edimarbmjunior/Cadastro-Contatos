@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -16,10 +16,15 @@ import { ContatoService } from './contato.service';
             cursor: pointer;
         }
     `]
+    /*inputs:[
+        'busca:mySearch' //propertyName:alias
+    ]*/
 })
 
-export class ContatoBuscaComponent implements OnInit {
+export class ContatoBuscaComponent implements OnInit, OnChanges {
 
+    @Input() busca: string;
+    @Output() buscaChange: EventEmitter<string> = new EventEmitter<string>();
     contatos: Observable<Contato[]>;
     private termosDaBusca: Subject<string> = new Subject<string>();
 
@@ -41,13 +46,17 @@ export class ContatoBuscaComponent implements OnInit {
             /*this.contatos.subscribe((contatos: Contato[]) => {
                 console.log('Retornou do servidor: ', contatos);
             })*/ // retirado por ter a função "async", que subscreve o observable retornado
-     }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void{
+        let busca: SimpleChange = changes['busca'];
+        this.search(busca.currentValue);
+    }
 
     search(termo: string): void{
-
-        console.log('Busca ', termo);
+        //console.log('Busca ', termo);
         this.termosDaBusca.next(termo);
-
+        this.buscaChange.emit(termo);
     }
 
     verDetalhe(contato: Contato): void{
