@@ -24,8 +24,9 @@ export class ContatosListaComponent implements OnInit{
 
     ngOnInit(): void{
         //this.contatos = this.contatoService.getContatos(); //-> chamado sem promises
-        this.contatoService.getContatos().then((contatos: Contato[])=> {
-            this.contatos = contatos;
+        this.contatoService.findAll()
+            .then((contatos: Contato[])=> {
+                this.contatos = contatos;
         }).catch(err=> {
             console.log('Acoteceu um erro: ', err);
             this.mostrarMensagem({

@@ -5,7 +5,8 @@
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "stop": "pkill --signal angular-quickstart"
   },
   "licenses": [
     {
